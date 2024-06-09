@@ -70,9 +70,27 @@
       });
     };
 
+    const handleImageSwap = () => {
+      const productImages = document.querySelectorAll('.product-image');
+      productImages.forEach(img => {
+        const primaryImg = img.getAttribute('src');
+        const secondaryImg = img.getAttribute('data-secondary-img');
+
+        img.addEventListener('mouseenter', () => {
+          img.src = secondaryImg;
+        });
+
+        img.addEventListener('mouseleave', () => {
+          img.src = primaryImg;
+        });
+      });
+    };
+
+    // Initialization
     toggleCardsVisibility(false);
     toggleVisibilityOnResize();
     handleShowMoreOrLessButtons();
+    handleImageSwap();
   });
 </script>
 
