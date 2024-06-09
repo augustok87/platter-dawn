@@ -59,14 +59,14 @@
         "product_wpAyUU": {
           "type": "product",
           "settings": {
-            "product": "",
+            "product": "nike-3",
             "button_text": "Buy Now"
           }
         },
         "product_LL3Pcb": {
           "type": "product",
           "settings": {
-            "product": "",
+            "product": "nike-4",
             "button_text": "Buy Now"
           }
         },
