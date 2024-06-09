@@ -23,6 +23,48 @@
   </footer>
 </section>
 
+<script type="module">
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileWidth = 768; // Define mobile width threshold, to be in sync with TailwindCSS md: breakpoint.
+
+    const toggleCardsVisibility = (isVisible) => {
+      const cards = document.querySelectorAll('.js-mobile-hide');
+      cards.forEach((card, index) => {
+        if (window.innerWidth <= mobileWidth && index > 3 && !isVisible) {
+          card.classList.add('hidden');
+        } else {
+          card.classList.remove('hidden');
+        }
+      });
+    };
+
+    const toggleVisibilityOnResize = () => {
+      window.addEventListener('resize', () => toggleCardsVisibility(false));
+    };
+
+    const handleShowMoreOrLessButtons = () => {
+      const showMoreButton = document.getElementById('show-more');
+      const showLessButton = document.getElementById('show-less');
+
+      showMoreButton.addEventListener('click', () => {
+        toggleCardsVisibility(true);
+        showMoreButton.classList.add('hidden');
+        showLessButton.classList.remove('hidden');
+      });
+
+      showLessButton.addEventListener('click', () => {
+        toggleCardsVisibility(false);
+        showLessButton.classList.add('hidden');
+        showMoreButton.classList.remove('hidden');
+      });
+    };
+
+    toggleCardsVisibility(false);
+    toggleVisibilityOnResize();
+    handleShowMoreOrLessButtons();
+  });
+</script>
+
 
 {% schema %}
   {
