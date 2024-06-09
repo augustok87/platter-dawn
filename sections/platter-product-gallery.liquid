@@ -1,0 +1,118 @@
+<section class="container my-8 md:w-fit">
+  <header>
+    <h2 class="font-bold my-4 flex text-4xl justify-center md:text-6xl md:justify-start">{{ section.settings.heading }}</h2>
+  </header>
+
+  <div class="flex justify-center flex-wrap overflow-x-auto md:flex-nowrap md:justify-start md:space-x-4 md:w-fit md:gap-3">
+    {% for block in section.blocks %}
+      <article class="product-card bg-white shadow-lg rounded-lg w-5/12 mx-4 max-w-md md:w-1/5 flex-shrink-0 h-auto py-6 md:py-6 js-mobile-hide">
+        <img src="{{ block.settings.product.featured_image | img_url: '900x900' }}" alt="{{ block.settings.product.title }}" 
+             class="product-image w-full h-80 md:h-96 object-cover rounded-xl"
+             data-secondary-img="{{ block.settings.product.images[1] | img_url: '900x900' }}">
+        <div class="uppercase p-4 flex flex-col justify-center items-start">
+          <h3 class="text-2lg font-medium">{{ block.settings.product.title }}</h3>
+          <div class="flex items-center text-black my-4">
+            <i class="fas fa-star fa-xs"></i>
+            <i class="fas fa-star fa-xs"></i>
+            <i class="fas fa-star fa-xs"></i>
+            <i class="fas fa-star fa-xs"></i>
+            <i class="fas fa-star-half-alt fa-xs"></i>
+            <span class="text-lg capitalize ml-2">1234 Reviews</span>
+          </div>
+          <p class="text-gray-500">{{ block.settings.product.price | money }}</p>
+        </div>
+      </article>
+    {% endfor %}
+  </div>
+
+  <footer class="flex justify-center items-center">
+    <button id="show-more" class="w-10/12 h-16 rounded-full bg-gray-800 text-white px-6 py-2 rounded mt-4 md:hidden">Show More</button>
+    <button id="show-less" class="w-10/12 h-16 rounded-full bg-gray-800 text-white px-6 py-2 rounded mt-4 hidden md:hidden">Show Less</button>
+  </footer>
+</section>
+
+<!-- The following cloudflare CDN is being used to create a static "Stars rating" icons within the product cards. -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+
+<script type="module">
+  document.addEventListener('DOMContentLoaded', () => {
+    const mobileWidth = 768; // Define mobile width threshold, to be in sync with TailwindCSS md: breakpoint.
+
+    const toggleCardsVisibility = (isVisible) => {
+      const cards = document.querySelectorAll('.js-mobile-hide');
+      cards.forEach((card, index) => {
+        if (window.innerWidth <= mobileWidth && index > 3 && !isVisible) {
+          card.classList.add('hidden');
+        } else {
+          card.classList.remove('hidden');
+        }
+      });
+    };
+
+    const toggleVisibilityOnResize = () => {
+      window.addEventListener('resize', () => toggleCardsVisibility(false));
+    };
+
+    const handleShowMoreOrLessButtons = () => {
+      const showMoreButton = document.getElementById('show-more');
+      const showLessButton = document.getElementById('show-less');
+
+      showMoreButton.addEventListener('click', () => {
+        toggleCardsVisibility(true);
+        showMoreButton.classList.add('hidden');
+        showLessButton.classList.remove('hidden');
+      });
+
+      showLessButton.addEventListener('click', () => {
+        toggleCardsVisibility(false);
+        showLessButton.classList.add('hidden');
+        showMoreButton.classList.remove('hidden');
+      });
+    };
+
+    toggleCardsVisibility(false);
+    toggleVisibilityOnResize();
+    handleShowMoreOrLessButtons();
+  });
+</script>
+
+
+{% schema %}
+  {
+    "name": "Featured Products",
+    "class": "flex justify-center",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Section Heading",
+        "default": "Best Sellers"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product",
+        "name": "Product Card",
+        "settings": [
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          },
+          {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button Text",
+            "default": "Buy Now"
+          }
+        ],
+        "limit": 10
+      }
+    ],
+    "presets": [
+      {
+        "name": "Featured Products"
+      }
+    ]
+  }
+  {% endschema %}
