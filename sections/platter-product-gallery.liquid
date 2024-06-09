@@ -1,23 +1,25 @@
-<section class="container">
+<section class="container my-8 md:w-fit">
   <header>
-    <h2>{{ section.settings.heading }}</h2>
+    <h2 class="font-bold my-4 flex text-4xl justify-center md:text-6xl md:justify-start">{{ section.settings.heading }}</h2>
   </header>
 
-  <div class="product-list">
+  <div class="flex justify-center flex-wrap overflow-x-auto md:flex-nowrap md:justify-start md:space-x-4 md:w-fit md:gap-3">
     {% for block in section.blocks %}
-      <article class="product-card js-mobile-hide">
-        <img src="{{ block.settings.product.featured_image | img_url: '900x900' }}" alt="{{ block.settings.product.title }}" class="product-image" data-secondary-img="{{ block.settings.product.images[1] | img_url: '900x900' }}">
-        <div class="product-info">
-          <h3>{{ block.settings.product.title }}</h3>
-          <p>{{ block.settings.product.price | money }}</p>
+      <article class="product-card bg-white shadow-lg rounded-lg w-5/12 mx-4 max-w-md md:w-1/5 flex-shrink-0 h-auto py-6 md:py-6 js-mobile-hide">
+        <img src="{{ block.settings.product.featured_image | img_url: '900x900' }}" alt="{{ block.settings.product.title }}" 
+             class="product-image w-full h-80 md:h-96 object-cover rounded-xl"
+             data-secondary-img="{{ block.settings.product.images[1] | img_url: '900x900' }}">
+        <div class="uppercase p-4 flex flex-col justify-center items-start">
+          <h3 class="text-2lg font-medium">{{ block.settings.product.title }}</h3>
+          <p class="text-gray-500">{{ block.settings.product.price | money }}</p>
         </div>
       </article>
     {% endfor %}
   </div>
 
-  <footer>
-    <button id="show-more">Show More</button>
-    <button id="show-less" class="hidden">Show Less</button>
+  <footer class="flex justify-center items-center">
+    <button id="show-more" class="w-10/12 h-16 rounded-full bg-gray-800 text-white px-6 py-2 rounded mt-4 md:hidden">Show More</button>
+    <button id="show-less" class="w-10/12 h-16 rounded-full bg-gray-800 text-white px-6 py-2 rounded mt-4 hidden md:hidden">Show Less</button>
   </footer>
 </section>
 
