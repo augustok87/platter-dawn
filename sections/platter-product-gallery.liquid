@@ -11,6 +11,14 @@
              data-secondary-img="{{ block.settings.product.images[1] | img_url: '900x900' }}">
         <div class="uppercase p-4 flex flex-col justify-center items-start">
           <h3 class="text-2lg font-medium">{{ block.settings.product.title }}</h3>
+          <div class="flex items-center text-black my-4">
+            <i class="fas fa-star fa-xs"></i>
+            <i class="fas fa-star fa-xs"></i>
+            <i class="fas fa-star fa-xs"></i>
+            <i class="fas fa-star fa-xs"></i>
+            <i class="fas fa-star-half-alt fa-xs"></i>
+            <span class="text-lg capitalize ml-2">1234 Reviews</span>
+          </div>
           <p class="text-gray-500">{{ block.settings.product.price | money }}</p>
         </div>
       </article>
@@ -22,6 +30,9 @@
     <button id="show-less" class="w-10/12 h-16 rounded-full bg-gray-800 text-white px-6 py-2 rounded mt-4 hidden md:hidden">Show Less</button>
   </footer>
 </section>
+
+<!-- The following cloudflare CDN is being used to create a static "Stars rating" icons within the product cards. -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 
 <script type="module">
   document.addEventListener('DOMContentLoaded', () => {
